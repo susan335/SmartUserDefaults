@@ -41,6 +41,31 @@ public struct UserDefaultsProperty<T> {
 }
 
 @propertyWrapper
+public struct UserDefaultsEnumProperty<T> where T: RawRepresentable {
+    private let userDefaults: UserDefaults
+    public let key: String
+    private let defaultValue: T
+    
+    public init(userDefaults: UserDefaults = UserDefaults.standard, key: String, defaultValue: T) {
+        self.userDefaults = userDefaults
+        self.key = key
+        self.defaultValue = defaultValue
+    }
+        
+    public var wrappedValue: T {
+        get {
+            guard let rawValue = userDefaults.object(forKey: key) as? T.RawValue else {
+                return defaultValue
+            }
+            return T.init(rawValue: rawValue) ?? defaultValue
+        }
+        set {
+            userDefaults.setValue(newValue.rawValue, forKey: key)
+        }
+    }
+}
+
+@propertyWrapper
 public struct UserDefaultsOptionalProperty<T> {
     private let userDefaults: UserDefaults
     public let key: String
@@ -75,3 +100,32 @@ public struct UserDefaultsOptionalProperty<T> {
         }
     }
 }
+
+@propertyWrapper
+public struct UserDefaultsOptionalEnumProperty<T> where T: RawRepresentable {
+    private let userDefaults: UserDefaults
+    public let key: String
+    
+    public init(userDefaults: UserDefaults = UserDefaults.standard, key: String) {
+        self.userDefaults = userDefaults
+        self.key = key
+    }
+        
+    public var wrappedValue: T? {
+        get {
+            guard let rawValue = userDefaults.object(forKey: key) as? T.RawValue else {
+                return nil
+            }
+            return T.init(rawValue: rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                userDefaults.set(newValue.rawValue, forKey: key)
+            }
+            else {
+                userDefaults.removeObject(forKey: key)
+            }
+        }
+    }
+}
+
