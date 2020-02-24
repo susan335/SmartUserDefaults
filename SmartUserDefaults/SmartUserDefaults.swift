@@ -129,3 +129,33 @@ public struct UserDefaultsOptionalEnumProperty<T> where T: RawRepresentable {
     }
 }
 
+public class FakeUserDefaults: UserDefaults {
+    
+    public var hashMap: [String: Any] = [:]
+    
+    public override func set(_ value: Any?, forKey key: String) {
+        if let value = value {
+            hashMap[key] = value
+        }
+        else {
+            hashMap.removeValue(forKey: key)
+        }
+    }
+    
+    public override func set(_ url: URL?, forKey key: String) {
+        if let url = url {
+            hashMap[key] = url
+        }
+        else {
+            hashMap.removeValue(forKey: key)
+        }
+    }
+    
+    public override func object(forKey key: String) -> Any? {
+        hashMap[key]
+    }
+    
+    public override func url(forKey key: String) -> URL? {
+        hashMap[key] as? URL
+    }
+}
