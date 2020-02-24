@@ -9,7 +9,7 @@
 import Foundation
 
 @propertyWrapper
-public struct UserDefaultsProperty<T> where T: Any {
+public struct UserDefaultsProperty<T> {
     private let userDefaults: UserDefaults
     public let key: String
     private let defaultValue: T
