@@ -1,11 +1,3 @@
-//
-//  SmartUserDefaults.swift
-//  SmartUserDefaults
-//
-//  Created by Yohta Watanave on 2020/02/24.
-//  Copyright © 2020 Yohta Watanave. All rights reserved.
-//
-
 import Foundation
 
 @propertyWrapper

@@ -1,11 +1,3 @@
-//
-//  SmartUserDefaultsTests.swift
-//  SmartUserDefaultsTests
-//
-//  Created by Yohta Watanave on 2020/02/24.
-//  Copyright © 2020 Yohta Watanave. All rights reserved.
-//
-
 import XCTest
 import SmartUserDefaults
 
